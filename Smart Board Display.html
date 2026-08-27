@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>
+
+        /*
+
+            SMART BOARD DISPLAY
+            (a simple digital signage webapp)
+            Author: Mr L (2026)
+
+
+        LICENSE: You can do what you like with this code as long as:
+        - you release any derivative works for free
+        - you in no way use generative AI or large-language models to modify, edit, analyze, train, or otherwise interact with this code
+        - you are an individual user ONLY
+
+
+        Makes use of the following libraries.
+        Each library is property of its respective authors and must be used according to the terms of its own license.
+        - jquery
+        - google fonts
+        - anime.js
+        - three.js
+
+
+        THE TODO LIST
+
+        - FANCY WALLPAPERS:
+            - ADD BLEND MODE/OPACITY to paste css, vanta
+            - other ideas from https://htmlhub.org
+            - VANTA: create separately so they're not running simultaneously
+            - CSS wallpaper, paste in gradient from gradientmagic?
+                - auto remove text background-image or background if copypasted in
+            - better matrix implementation
+        - GRID PAPER EFFECT:
+            - do it yourself using javascript and css gradients
+            - should be at a level higher than the background at 7, below draggables at 20
+            - repeating-linear-gradient(90deg, hsla(168,0%,63%,0.09) 0px, hsla(168,0%,63%,0.09) 1px,transparent 1px, transparent 96px),repeating-linear-gradient(0deg, hsla(168,0%,63%,0.09) 0px, hsla(168,0%,63%,0.09) 1px,transparent 1px, transparent 96px),repeating-linear-gradient(0deg, hsla(168,0%,63%,0.09) 0px, hsla(168,0%,63%,0.09) 1px,transparent 1px, transparent 12px),repeating-linear-gradient(90deg, hsla(168,0%,63%,0.09) 0px, hsla(168,0%,63%,0.09) 1px,transparent 1px, transparent 12px);
+        - CLOCK AND TIME:
+            - analog teacher options
+            - stopwatch/timer - base the digits on the digital clock
+        - WISHLIST:
+            - force canvas size - xy in right click? - for building at different resolutions
+            - Button that prompts to search youtube/google/ddg
+            - Camera input from document camera
+            - layout saving
+            - rainbow borders? https://codepen.io/nocksock/pen/zYQVmwG
+        - bugs:
+            - can't load same file twice - that's because files onchange calls the load function
+            - dragging scaled elements is weird
+            - grid paper some small issues
+            - canvas wallpapers don't switch nicely to each other
+            - multiple fancy texts with rainbow don't work
+            - gradient video doesn't loop!
+
+        */
+    
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Board Display</title>
+    <link rel="stylesheet" href="assets/main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script src="https://code.jquery.com/ui/1.14.2/jquery-ui.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+    <script>
+
+        //mouse right click saved location
+        const rcloc = {
+            x: "0px",
+            y: "0px"
+        }
+
+        //loads a new background video
+        function SetBackground(src,bVid) {
+            let video = document.getElementById('backgroundvid');
+            let img = document.getElementById('backgroundimg');
+            if ( bVid ) {
+                video.style = "display: inline";
+                video.pause();
+                video.src = src;
+                video.load();
+                video.play();
+                img.src = "";
+                img.style = "display: none";
+            } else {
+                video.pause();
+                video.src = "";
+                video.style = "display: none";
+                img.style = "display: inline";
+                img.src = src;
+            }
+        }
+
+        //attempt to load javascript from file
+        function LoadNewScript(src) {
+            (async () => {
+                await import(src).catch((error) => console.log('Loading ' + src + ' failed: ' + error));
+            })();
+        }    
+
+        //creates an image inside the specified div
+        function CreateNewImg(src,div,menu) {
+            let img = document.createElement("img");
+            img.src = src;
+            img.style.objectFit = "cover";
+            img.style.zIndex = 1;
+            div.appendChild(img);
+            //add edit entry to top of menu
+            let limg = AddContextItem(menu,"link",`<span class="material-symbols-outlined">open_in_new</span>Edit link`,true);
+            //let limg = document.createElement("li");
+            //limg.innerHTML = `<span class="material-symbols-outlined">open_in_new</span>Edit link`;
+            //menu.insertBefore(limg,menu.children[0]);
+            limg.addEventListener('click', function() {
+                let pres = "www.example.ca";
+                $(".context").hide(100);
+                if ( $(limg).attr("data-url") != undefined ) { pres = $(limg).attr("data-url"); }
+                limg.setAttribute('data-url', prompt("Enter URL to open when double-clicked",pres));
+            });
+            img.addEventListener('dblclick', function() {
+                if ( $(limg).attr("data-url") != undefined ) {
+                    let s = $(limg).attr("data-url");
+                    if ( !s.includes("http") ) { s = "http://" + s; }
+                    window.open(s,'Link','width=900,height=600');
+                }
+            });
+
+            return img;
+        }
+
+        function CreateNewVid(src,div,menu) {
+            let video = document.createElement("video");
+            video.src = src;
+            video.style.objectFit = "cover";
+            video.style.zIndex = 1;
+            video.autoplay = true;
+            video.loop = true;
+            video.muted = true;
+            div.appendChild(video);
+            //add edit entry to top of menu
+            let limg = AddContextItem(menu,"link",`<span class="material-symbols-outlined">open_in_new</span>Edit link`,true);
+            //let liv = document.createElement("li");
+            //liv.innerHTML = `<span class="material-symbols-outlined">open_in_new</span>Edit link`;
+            //menu.insertBefore(liv,menu.children[0]);
+            liv.addEventListener('click', function() {
+                let upres = "www.example.ca";
+                $(".context").hide(100);
+                if ( $(liv).attr("data-url") != undefined ) { upres = $(liv).attr("data-url"); }
+                liv.setAttribute('data-url', prompt("Enter URL to open when double-clicked",upres));
+            });
+            video.addEventListener('dblclick', function() {
+                if ( $(liv).attr("data-url") != undefined ) {
+                    let s = $(liv).attr("data-url");
+                    if ( !s.includes("http") ) { s = "http://" + s; }
+                    window.open(s,'Link','width=900,height=600');
+                }
+            });
+
+            return video;
+        }
+
+        //creates a note inside the specified div
+        function CreateNewNote(file,div) {
+            let note = document.createElement("div");
+            note.classList.add('notes');
+            div.appendChild(note);
+            let h = document.createElement("h3");
+            h.textContent = file.name.slice(0,-4);
+            note.appendChild(h);
+            let pre = document.createElement("pre");
+            note.appendChild(pre);
+            let reader = new FileReader();
+        	reader.onload = function () {
+        		pre.textContent = reader.result;
+        	}
+    		reader.readAsText(file);
+            return note;
+        }
+
+        //creates an html div containing all the contents of the file
+        function CreateNewHMTLObj(file,div) {
+            let container = document.createElement("div");
+            div.appendChild(container);
+            let reader = new FileReader();
+            reader.onload = function () {
+                container.innerHTML = reader.result;
+            }
+            reader.readAsText(file);
+            return container;
+        }
+
+        //loads a script image or video and sets it as the background
+        //wallpaper scripts won't show up here unless they have mjs extension
+        function LoadBackground(file) {
+            let filesrc = URL.createObjectURL(file);
+            if ( file.type.includes("javascript") ) {
+                LoadNewScript(filesrc);
+            } else {
+                SetBackground(filesrc,file.type.includes("video"));
+            }
+        }
+
+        //loads an array of files, and handles them according to type
+        function LoadObj (files) {
+            for ( let m = 0; m < files.length; m++ ) {
+                let file = files[m];
+                let filesrc = URL.createObjectURL(file);
+                if ( file.type.includes("javascript") ) {
+                    //scripts get loaded into the page with no need for visual
+                    LoadNewScript(filesrc);
+                }
+                //all other items are visual and need to be created as a draggable element
+                else {
+                    //create the draggable div outer
+                    let mydiv = CreateNewObj();
+                    //attach the default context menu
+                    let mymenu = CreateDefaultContextMenu(mydiv);
+                    if ( file.type.includes("image") ) {
+                        //images load draggable
+                        CreateNewImg(filesrc,mydiv,mymenu);
+                    }
+                    else if ( file.type.includes("video") ) {
+                        //videos can load like images
+                        CreateNewVid(filesrc,mydiv,mymenu);
+                    }
+                    else if ( file.type.includes("plain") ) {
+                        //plain text documents are loaded as a draggable note
+                        CreateNewNote(file,mydiv);
+                    }
+                    else if ( file.type.includes("html") ) {
+                        //load html code draggable
+                        CreateNewHMTLObj(file,mydiv);
+                    }
+                }
+            }
+        }
+
+        /* HANDY FUNCTIONS FOR ADDONS */
+
+        //creates a draggable scalable div object
+        //good for wrapping anything visible that can be manipulated
+        function CreateNewObj() {
+            let div = document.createElement("div");
+            div.classList.add("object-div");
+            $(div).css('transform','scale(1)');
+            div.addEventListener('wheel',function(event) {
+                event.preventDefault();
+                let dir = -1;
+                let scale = this.getBoundingClientRect().width / this.offsetWidth;
+                if ( event.deltaY < 0 ) { dir = 1; }
+                scale += dir * 0.1;
+                scale = Math.max(0.1, Math.min(5, scale));
+                $(this).css('transform', `scale(${scale})`);
+            });
+            document.body.appendChild(div);
+            //set location to where the mouse was last right clicked
+            $(div).css({
+                top: rcloc.y,
+                left: rcloc.x,
+            });
+            $(div).draggable();
+            return div;
+        }
+
+        //creates a draggable ui object
+        //good for controls
+        function CreateNewUI() {
+            let div = CreateNewObj();
+            div.classList.add("ui-div");
+            return div;
+        }
+
+        //creates a default object context menu
+        //handles the actions for all default menu items
+        //attaches it to specified element
+        function CreateDefaultContextMenu (elem) {
+            let mymenu = document.getElementById("default-context").cloneNode(true);
+            document.body.appendChild(mymenu);
+            AddContextMenu(elem,mymenu);
+            $(mymenu).on("click", "li", function() {
+                let zi;
+                //this is the triggered action name
+                switch ( $(this).attr("data-action") ) {
+                    case "up":
+                        zi = $(elem).css('z-index');
+                        zi++;
+                        $(elem).css('z-index',zi);
+                        break;
+                    case "down":
+                        zi = $(elem).css('z-index');
+                        zi--;
+                        $(elem).css('z-index',zi);
+                        break;
+                    case "lock":
+                        if ( $(elem).draggable("option", "disabled") ) {
+                            this.innerHTML = `<span class="material-symbols-outlined">lock</span>Lock position`;
+                            $(elem).draggable("enable");
+                        } else {
+                            this.innerHTML = `<span class="material-symbols-outlined">lock_open_right</span>Allow moving`;
+                            $(elem).draggable("disable");
+                        }
+                        break;
+                    case "hide":
+                        $(elem).css('display','none');
+                        break;this.getBoundingClientRect().width / this.offsetWidth
+                    case "reset":
+                        $(elem).css('transform','scale(1)');
+                        break;
+                    case "delete":
+                        elem.remove();
+                        break;
+                }
+                $(".context").hide(100);
+            });
+            return mymenu;
+        }
+
+        //creates an empty context menu to be customized later
+        //attaches it to specified element
+        function CreateContextMenu (elem) {
+            let mymenu = document.createElement("ul");
+            mymenu.classList.add("context");
+            document.body.appendChild(mymenu);
+            AddContextMenu(elem,mymenu);
+            //addons should now add li elements with AddContextItem()
+            //and then use $(mymenu).on("click", "li", function() {}); and check $(this).attr("data-action")
+            //for click actions
+            return mymenu;
+        }
+
+        //adds a clickable item to a specific context menu
+        function AddContextItem (menu, action, text, bBefore) {
+            let li = document.createElement("li");
+            li.setAttribute('data-action', action+"");
+            li.innerHTML = text;
+            if ( bBefore ) {
+                menu.insertBefore(li,menu.children[0]);
+            } else {
+                menu.appendChild(li);
+            }
+            return li;
+        }
+
+        //empty out the video/img
+        //doesn't affect any other div or canvas
+        function ClearBackground() {
+            let video = document.getElementById('backgroundvid');
+            let img = document.getElementById('backgroundimg');
+            video.pause();
+            video.src = "";
+            video.style = "display: none";
+            img.src = "";
+            img.style = "display: none";
+        }
+
+        //adds a background div, above the video and below canvas layer
+        function CreateBackgroundLayer () {
+            let div = document.createElement("div");
+            div.classList.add("background-overlay")
+            document.body.appendChild(div);
+            return div;
+        }
+
+        //adds a foreground div, above everything and not clickable
+        function CreateForegroundLayer () {
+            let div = document.createElement("div");
+            div.classList.add("foreground-overlay")
+            document.body.appendChild(div);
+            return div;
+        }
+
+    </script>
+</head>
+<body>
+
+    <!-- VIDEO BACKGROUND -->
+    <div class="video-container">
+      <video autoplay muted loop id="backgroundvid" src="assets/colorful.mp4" type="video/mp4">
+      </video>
+      <img id="backgroundimg" style="display: none;">
+    </div>
+
+    <!-- FILE INPUTS -->
+    <input id="file-input" type="file" multiple accept=".txt,.html,.js,.gif,.png,.jpg,.jpeg,.bmp,.mp4,.mkv,.avi,.webp,.webm" style="display: none;" onchange="LoadObj(this.files)" />
+    <input id="background-input" type="file" accept=".png,.jpg,.jpeg,.bmp,.mp4,.mkv,.avi,.webp,.webm,.mjs" style="display: none;" onchange="LoadBackground(this.files[0])" />
+
+    <!-- CANVAS - to enable DOUBLE-CLICK TO LOAD: ondblclick="document.getElementById('file-input').click();" -->
+    <canvas id="back-canvas"></canvas>
+
+    <!-- grid helper -->
+    <div class='grid-overlay'></div>
+
+    <!-- context menu background -->
+    <ul class='context' id="background-context">
+        <li data-action="add"><span class="material-symbols-outlined">desktop_landscape_add</span>Add object</li>
+        <li data-action="back"><span class="material-symbols-outlined">wallpaper</span>Change background</li>
+        <li data-action="show"><span class="material-symbols-outlined">visibility</span>Show hidden objects</li>
+        <li data-action="grid"><span class="material-symbols-outlined">border_inner</span>Toggle helper grid</li>
+        <hr />
+        <li data-action="reset"><span class="material-symbols-outlined">restart_alt</span>Reset all</li>
+        <li data-action="new"><span class="material-symbols-outlined">new_window</span>New display</li>
+        <li data-action="close"><span class="material-symbols-outlined">tab_close</span>Close this display</li>
+    </ul>
+
+    <!-- context menu default object -->
+     <ul class='context' id="default-context">
+        <li data-action="up"><span class="material-symbols-outlined">keyboard_double_arrow_up</span>Bring forward</li>
+        <li data-action="down"><span class="material-symbols-outlined">keyboard_double_arrow_down</span>Move backward</li>
+        <li data-action="lock"><span class="material-symbols-outlined">lock</span>Lock position</li>
+        <li data-action="hide"><span class="material-symbols-outlined">visibility_off</span>Hide object</li>
+        <li data-action="reset"><span class="material-symbols-outlined">photo_size_select_small</span>Reset size</li>
+        <li data-action="delete"><span class="material-symbols-outlined">delete_forever</span>Delete</li>
+    </ul>
+
+</body>
+<script>
+
+    //allows an object to open a specific context menu
+    //adapted from https://stackoverflow.com/a/20471268 by Francisco Presencia
+    function AddContextMenu(obj,menu) {
+        obj.addEventListener('contextmenu',function(event) {
+            event.preventDefault();
+            // Show context menu
+            $(menu).finish().toggle(100).
+            //location
+            css({
+                top: event.pageY + "px",
+                left: event.pageX + "px"
+            });
+            //save mouse click location for item creation
+            rcloc.x = event.pageX + "px";
+            rcloc.y = event.pageY + "px";
+        });
+    }
+
+    //attach the background context menu to canvas
+    let canvas = document.querySelector("canvas");
+    AddContextMenu(canvas,$("#background-context"));
+    
+    //if the document is clicked somewhere, close all context menus
+    $(document).bind("mousedown", function (e) {
+        //if the clicked element is not the menu
+        if (!$(e.target).parents(".context").length > 0) {
+            // Hide it
+            $(".context").hide(100);
+        }
+    });
+
+    //actions for background context menu
+    $("#background-context").on("click", "li", function() {
+        //this is the triggered action name
+        switch($(this).attr("data-action")) {
+            case "add":
+                document.getElementById('file-input').click();
+                break;
+            case "back":
+                document.getElementById('background-input').click();
+                break;
+            case "show":
+                let divs = document.getElementsByClassName("object-div");
+                for ( let i = 0; i < divs.length; i++ ) {
+                    if ( $(divs[i]).css("display") == "none" ) {
+                        $(divs[i]).toggle();
+                    }
+                }
+                break;
+            case "grid":
+                $(".grid-overlay").toggle();
+                break;
+            case "reset":
+                location.reload();
+                break;
+            case "new":
+                window.open().document.location.href = "./Smart Board Display.html"; 
+                break;
+            case "close":
+                window.close();
+                break;
+        }
+        $(".context").hide(100);
+    });
+
+</script>
+</html>
