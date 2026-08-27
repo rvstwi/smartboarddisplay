@@ -1,0 +1,242 @@
+/* Author: Mr L (2026) */
+/* Do what you want with it, just give credit. */
+
+/* DEFAULT VARIABLES */
+:root {
+  --note-bg: #d1d10ea7;
+  --note-text: #232323;
+  --note-font: "Indie Flower", cursive;
+  --ui-bg: #ececece0;
+  --ui-text: #3e3e3e;
+  --ui-deselect: #777777c6;
+  --ui-hover: #439efada;
+  --ui-border: 1px solid #bec4ced2;
+  --ui-radius: 5px;
+  --ui-font: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+/* BEGIN NOTES */
+.notes {
+  background-color: var(--note-bg);
+  border: var(--ui-border);
+  color: var(--note-text);
+  background-image: url("lines.png");
+  background-size: 0.2vw;
+  max-width: 34vw;
+  padding: 0.4vw;
+  position: relative;
+}
+
+.notes pre {
+  font-size: 1.65vw;
+  font-family: var(--note-font);
+  font-weight: 400;
+  text-align: left;
+  padding: 0.7vw;
+  width: 100%;
+  white-space: pre-wrap;
+  white-space: -moz-pre-wrap;
+  white-space: -pre-wrap;
+  white-space: -o-pre-wrap;
+  word-wrap: break-word;
+}
+
+.notes h3 {
+  font-size: 2.6vw;
+  font-style: italic;
+  font-family: var(--note-font);
+  font-weight: 700;
+  text-align: center;
+  text-shadow: 0.3vh 0.3vh 0.5vh #00000030;
+  padding: 0.1vw;
+}
+/* END text note appearance */
+
+/* foreground overlay for effects */
+.foreground-overlay {
+  z-index: 400;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: none;
+}
+
+/* grid helper */
+.grid-overlay {
+  display: none;
+  background-image: repeating-linear-gradient(90deg, hsla(253,0%,96%,0.3) 0px, hsla(253,0%,96%,0.3) 1px,transparent 1px,transparent 33.33%),repeating-linear-gradient(0deg, hsla(253,0%,96%,0.3) 0px, hsla(253,0%,96%,0.3) 1px,transparent 1px,transparent 33.33%),repeating-linear-gradient(90deg, hsla(253,0%,96%,0.07) 0px, hsla(253,0%,96%,0.07) 1px,transparent 1px,transparent 16.67%),repeating-linear-gradient(0deg, hsla(253,0%,96%,0.07) 0px, hsla(253,0%,96%,0.07) 1px,transparent 1px,transparent 16.67%);
+  z-index: 700;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  pointer-events: none;
+}
+
+/* BEGIN DRAGGABLE */
+.object-div {
+  position: absolute;
+  z-index: 20;
+  padding: 0px;
+}
+
+/* draggable UI subclass */
+.ui-div {
+  background: var(--ui-bg);
+  color: var(--ui-text);
+  border: var(--ui-border);
+  padding: 0.9vh;
+  border-radius: var(--ui-radius);
+}
+
+.ui-div input, button, label, p, select, br {
+  padding: 0.5vh;
+  font-family: var(--ui-font);
+  color: var(--ui-text);
+  text-shadow: 0.3vh 0.3vh 0.5vh #00000030;
+  font-size: 1.5vh;
+}
+/* END DRAGGABLE */
+
+/* BEGIN CONTEXT MENUS */
+.context {
+  display: none;
+  z-index: 1000;
+  position: absolute;
+  overflow: hidden;
+  border: var(--ui-border);
+  white-space: nowrap;
+  font-family: var(--ui-font);
+  background: var(--ui-bg);
+  color: var(--ui-text);
+  text-align: left;
+  border-radius: var(--ui-radius);
+  text-shadow: 0.3vh 0.3vh 0.5vh #00000030;
+  padding: 0;
+  font-size: 1.5vh;
+}
+
+/* Each of the items in the list */
+.context li {
+  padding: 0.9vh 1.7vw;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  list-style-type: none;
+  transition: all .2s ease;
+  user-select: none;
+}
+
+/* Padding for google font icons */
+.context span {
+  padding: 0 1vw 0 0;
+}
+
+.context p {
+  padding: 0;
+  text-align: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.context li:hover {
+  background-color: var(--ui-hover);
+}
+
+.context hr {
+  border-color: rgba(200, 200, 200, 0.232);
+  width: 80%;
+  height: 1px;
+  border-style: inset;
+}
+/* END context menus */
+
+/* BEGIN BUTTONS */
+.button-div {
+  background-image: url("button.png");
+  background-size: cover;
+  width: 6vw;
+  height: 6vw;
+  object-fit: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 0px;
+}
+
+.button-div img {
+  width: 50%;
+  height: 50%;
+  padding-top: 0.35vh;
+}
+/* END buttons */
+
+/* BEGIN BACKGROUND */
+#back-canvas {
+  position: absolute;
+  display: block;
+  width: 100vw;
+  height: 100vh;
+  z-index: 7;
+}
+
+.background-overlay {
+  z-index: 5;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.video-container {
+  z-index: 1;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #dc0000;
+  margin:0;
+  padding:0;
+}
+
+.video-container video {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  object-fit:cover;
+  z-index: 0;
+}
+
+.video-container img {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  object-fit:cover;
+  z-index: 0;
+}
+
+canvas {
+  display: none;
+}
+/* END background */
+
+html,body {
+   height: 100%;
+   margin: 0;
+   overflow: hidden;
+}
