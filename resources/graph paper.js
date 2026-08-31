@@ -89,7 +89,10 @@ function watchTranspInput (event) {
 function SetBackground() {
     let c = hexToRgb(gcolor);
     let s = c.r + ", " + c.g + ", " + c.b + ", " + gtransp + "%";
-    let p = `repeating-linear-gradient(90deg, rgba(${s}) 0px, rgba(${s}) 1px, transparent 1px, transparent 20px), repeating-linear-gradient(0deg, rgba(${s}) 0px, rgba(${s}) 1px, transparent 1px, transparent 20px)`;
+    let p = `
+        repeating-linear-gradient(90deg, rgba(${s}) 0px, rgba(${s}) 1px, transparent 1px, transparent 20px), 
+        repeating-linear-gradient(0deg, rgba(${s}) 0px, rgba(${s}) 1px, transparent 1px, transparent 20px)
+    `;
     $(grid).css('background-image', p);
 }
 
