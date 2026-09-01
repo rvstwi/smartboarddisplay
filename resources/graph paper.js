@@ -5,9 +5,9 @@ let controls = CreateNewUI();
 let menu = CreateDefaultContextMenu(controls);
 let grid = CreateForegroundLayer();
 
-let gsize = 40;
+let gsize = 15;
 let gdivide = 5;
-let gtransp = 40;
+let gtransp = 20;
 let gcolor = "#ffffff";
 
 //create controls
@@ -25,8 +25,8 @@ let gsizeinput = document.createElement("input");
 gsizeinput.type = "range";
 gsizeinput.id = "size";
 gsizeinput.value = gsize;
-gsizeinput.min = "10";
-gsizeinput.max = "100";
+gsizeinput.min = "6";
+gsizeinput.max = "60";
 controls.appendChild(gsizeinput);
 gsizeinput.addEventListener("change",watchSizeInput);
 let gsizeinlabel = document.createElement("label");
@@ -56,7 +56,7 @@ gtranspinput.type = "range";
 gtranspinput.id = "transp";
 gtranspinput.value = gtransp;
 gtranspinput.min = "0";
-gtranspinput.max = "100";
+gtranspinput.max = "60";
 controls.appendChild(gtranspinput);
 gtranspinput.addEventListener("change",watchTranspInput);
 let gtranspinlabel = document.createElement("label");
@@ -92,10 +92,10 @@ function SetBackground() {
     let s = c.r + ", " + c.g + ", " + c.b + ", " + i + "%";
     let t = c.r + ", " + c.g + ", " + c.b + ", " + gtransp + "%";
     let p = `
-        repeating-linear-gradient(90deg, rgba(${s}) 0px, rgba(${s}) 1px, transparent 1px, transparent ${gsize / gdivide}px), 
-        repeating-linear-gradient(0deg, rgba(${s}) 0px, rgba(${s}) 1px, transparent 1px, transparent ${gsize / gdivide}px),
-        repeating-linear-gradient(90deg, rgba(${t}) 0px, rgba(${t}) 1px, transparent 1px, transparent ${gsize}px), 
-        repeating-linear-gradient(0deg, rgba(${t}) 0px, rgba(${t}) 1px, transparent 1px, transparent ${gsize}px)
+        repeating-linear-gradient(90deg, rgba(${s}) 0px, rgba(${s}) 1px, transparent 1px, transparent ${gsize * 10 / gdivide}px),
+        repeating-linear-gradient(0deg, rgba(${s}) 0px, rgba(${s}) 1px, transparent 1px, transparent ${gsize * 10 / gdivide}px),
+        repeating-linear-gradient(90deg, rgba(${t}) 0px, rgba(${t}) 1px, transparent 1px, transparent ${gsize * 10}px),
+        repeating-linear-gradient(0deg, rgba(${t}) 0px, rgba(${t}) 1px, transparent 1px, transparent ${gsize * 10}px)
     `;
     $(grid).css('background-image', p);
 }
