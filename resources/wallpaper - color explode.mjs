@@ -10,10 +10,10 @@ var animations = [];
 var circles = [];
 
 //create the color pickers inside a draggable div
-let color1 = "#d08eff";
-let color2 = "#2cffc0";
-let color3 = "#31c3e7";
-let color4 = "#24003e";
+let color1 = "#1a5fb4";
+let color2 = "#a51d2d";
+let color3 = "#26a269";
+let color4 = "#613583";
 var bgColor = color1;
 let autoclick = true;
 let outer = CreateNewUI();
