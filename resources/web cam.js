@@ -7,7 +7,6 @@ let video = document.createElement("video");
 video.style.objectFit = "cover";
 video.style.zIndex = 1;
 video.autoplay = true;
-outer.style.height = "480px";
 video.muted = true;
 outer.appendChild(video);
 
