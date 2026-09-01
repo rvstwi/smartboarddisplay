@@ -6,7 +6,7 @@ let menu = CreateDefaultContextMenu(controls);
 let grid = CreateForegroundLayer();
 
 let gsize = 40;
-let gdivide = 50;
+let gdivide = 5;
 let gtransp = 40;
 let gcolor = "#ffffff";
 
@@ -40,12 +40,12 @@ let gdivideinput = document.createElement("input");
 gdivideinput.type = "range";
 gdivideinput.id = "divide";
 gdivideinput.value = gdivide;
-gdivideinput.min = "0";
-gdivideinput.max = "100";
+gdivideinput.min = "3";
+gdivideinput.max = "10";
 controls.appendChild(gdivideinput);
 gdivideinput.addEventListener("change",watchDivideInput);
 let gdivideinlabel = document.createElement("label");
-gdivideinlabel.textContent = "Divide";
+gdivideinlabel.textContent = "Divisions";
 gdivideinlabel.htmlFor = "divide";
 controls.appendChild(gdivideinlabel);
 let br1 = document.createElement("br");controls.appendChild(br1);
