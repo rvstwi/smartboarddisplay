@@ -33,15 +33,10 @@
             - CSS wallpaper, paste in gradient from gradientmagic?
                 - auto remove text background-image or background if copypasted in
             - better matrix implementation
-        - GRID PAPER EFFECT:
-            - should be at a level higher than the background at 7, below draggables at 20
-            - buttons to adjust z index
-            - delete controls should delete grid
         - CLOCK AND TIME:
             - analog teacher options
             - stopwatch/timer - base the digits on the digital clock
         - WISHLIST:
-            - right click - add button here - ask for url - load favicon in center of button - http://www.google.com/s2/favicons?domain=music.youtube.com
             - force canvas size - xy in right click? - for building at different resolutions
             - Camera input from document camera
             - layout saving
@@ -306,6 +301,16 @@
                             $(elem).draggable("disable");
                         }
                         break;
+                    case "duplicate":
+                        let newitem = elem.cloneNode(true);
+                        document.body.appendChild(newitem);
+                        $(newitem).css({
+                            top: rcloc.y,
+                            left: rcloc.x,
+                        });
+                        $(newitem).draggable();
+                        CreateDefaultContextMenu(newitem);
+                        break;
                     case "hide":
                         $(elem).css('display','none');
                         break;this.getBoundingClientRect().width / this.offsetWidth
@@ -375,6 +380,11 @@
             return div;
         }
 
+        //quick log
+        function log (s) {
+            console.log("**SMART BOARD**:    " + s);
+        }
+
     </script>
 </head>
 <body>
@@ -398,24 +408,25 @@
 
     <!-- context menu background -->
     <ul class='context' id="background-context">
-        <li data-action="add"><span class="material-symbols-outlined">desktop_landscape_add</span>Add object</li>
-        <li data-action="back"><span class="material-symbols-outlined">wallpaper</span>Change background</li>
-        <li data-action="show"><span class="material-symbols-outlined">visibility</span>Show hidden objects</li>
-        <li data-action="grid"><span class="material-symbols-outlined">border_inner</span>Toggle helper grid</li>
+        <li data-action="add" name="add"><span class="material-symbols-outlined">desktop_landscape_add</span>Add object</li>
+        <li data-action="back" name="back"><span class="material-symbols-outlined">wallpaper</span>Change background</li>
+        <li data-action="show" name="show"><span class="material-symbols-outlined">visibility</span>Show hidden objects</li>
+        <li data-action="grid" name="grid"><span class="material-symbols-outlined">border_inner</span>Toggle helper grid</li>
         <hr />
-        <li data-action="reset"><span class="material-symbols-outlined">restart_alt</span>Reset all</li>
-        <li data-action="new"><span class="material-symbols-outlined">new_window</span>New display</li>
-        <li data-action="close"><span class="material-symbols-outlined">tab_close</span>Close this display</li>
+        <li data-action="reset" name="reset"><span class="material-symbols-outlined">restart_alt</span>Reset all</li>
+        <li data-action="new" name="new"><span class="material-symbols-outlined">new_window</span>New display</li>
+        <li data-action="close" name="close"><span class="material-symbols-outlined">tab_close</span>Close this display</li>
     </ul>
 
     <!-- context menu default object -->
      <ul class='context' id="default-context">
-        <li data-action="up"><span class="material-symbols-outlined">keyboard_double_arrow_up</span>Bring forward</li>
-        <li data-action="down"><span class="material-symbols-outlined">keyboard_double_arrow_down</span>Move backward</li>
-        <li data-action="lock"><span class="material-symbols-outlined">lock</span>Lock position</li>
-        <li data-action="hide"><span class="material-symbols-outlined">visibility_off</span>Hide object</li>
-        <li data-action="reset"><span class="material-symbols-outlined">photo_size_select_small</span>Reset size</li>
-        <li data-action="delete"><span class="material-symbols-outlined">delete_forever</span>Delete</li>
+        <li data-action="up" name="up"><span class="material-symbols-outlined">keyboard_double_arrow_up</span>Bring forward</li>
+        <li data-action="down" name="down"><span class="material-symbols-outlined">keyboard_double_arrow_down</span>Move backward</li>
+        <li data-action="lock" name="lock"><span class="material-symbols-outlined">lock</span>Lock position</li>
+        <li data-action="duplicate" name="duplicate"><span class="material-symbols-outlined">tab_inactive</span>Clone object</li>
+        <li data-action="hide" name="hide"><span class="material-symbols-outlined">visibility_off</span>Hide object</li>
+        <li data-action="reset" name="reset"><span class="material-symbols-outlined">photo_size_select_small</span>Reset size</li>
+        <li data-action="delete" name="delete"><span class="material-symbols-outlined">delete_forever</span>Delete</li>
     </ul>
 
 </body>
