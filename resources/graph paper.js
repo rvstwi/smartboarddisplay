@@ -8,7 +8,7 @@ let grid = CreateForegroundLayer();
 let gsize = 15;
 let gdivide = 5;
 let gtransp = 20;
-let gcolor = "#ffffff";
+let gcolor = "#deddda";
 
 //create controls
 
