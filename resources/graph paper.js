@@ -4,6 +4,7 @@
 let controls = CreateNewUI();
 let menu = CreateDefaultContextMenu(controls);
 let grid = CreateForegroundLayer();
+grid.style.zIndex = 19;//draggables are 20 so just behind but changeable
 
 let gsize = 15;
 let gdivide = 5;
@@ -56,15 +57,44 @@ gtranspinput.type = "range";
 gtranspinput.id = "transp";
 gtranspinput.value = gtransp;
 gtranspinput.min = "0";
-gtranspinput.max = "60";
+gtranspinput.max = "75";
 controls.appendChild(gtranspinput);
 gtranspinput.addEventListener("change",watchTranspInput);
 let gtranspinlabel = document.createElement("label");
 gtranspinlabel.textContent = "Transparency";
 gtranspinlabel.htmlFor = "transp";
 controls.appendChild(gtranspinlabel);
+let br3 = document.createElement("br");controls.appendChild(br3);
+
+//layer up/down buttons
+let gbutup = document.createElement("button");
+gbutup.type = "button";
+gbutup.innerHTML = `<span class="material-symbols-outlined">keyboard_double_arrow_up</span>`;
+controls.appendChild(gbutup);
+gbutup.addEventListener("click",watchUpBut);
+let gbutdown = document.createElement("button");
+gbutdown.type = "button";
+gbutdown.innerHTML = `<span class="material-symbols-outlined">keyboard_double_arrow_down</span>`;
+controls.appendChild(gbutdown);
+gbutdown.addEventListener("click",watchDownBut);
+
+//add action to delete button
+let lidelete = menu.querySelector("li[name='delete']");
+lidelete.addEventListener("click",watchDelete);
 
 SetBackground();
+
+function watchDelete () {
+    grid.remove();
+}
+
+function watchUpBut () {
+    grid.style.zIndex++;
+}
+
+function watchDownBut () {
+    grid.style.zIndex--;
+}
 
 function watchColorPicker (event) {
     gcolor = event.target.value;
@@ -88,7 +118,7 @@ function watchTranspInput (event) {
 
 function SetBackground() {
     let c = hexToRgb(gcolor);
-    let i = gtransp / 2;
+    let i = gtransp / 2.5;
     let s = c.r + ", " + c.g + ", " + c.b + ", " + i + "%";
     let t = c.r + ", " + c.g + ", " + c.b + ", " + gtransp + "%";
     let p = `
