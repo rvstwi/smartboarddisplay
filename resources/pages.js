@@ -27,10 +27,13 @@ function watchButPrev () {
 
 function MovePage (dir) {
     let Objs = $(".object-div");
-    let way = dir > 0 ? "right" : "left";
+    let w = window.innerWidth * dir;
     for ( let i = 0; i < Objs.length; i++ ) {
         if ( Objs[i] != controls ) {
-            Objs[i].animate({way:"100%"},500);
+            Objs[i].animate({
+                transform: `translateX(${w}px)`,
+                offset: 0
+            }, 1000);
         }
     }
 }
