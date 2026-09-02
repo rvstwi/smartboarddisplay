@@ -29,7 +29,7 @@
         - FANCY WALLPAPERS:
             - ADD BLEND MODE/OPACITY to paste css, vanta
             - other ideas from https://htmlhub.org
-            - VANTA: create separately so they're not running simultaneously
+            - VANTA: net will be a good option
             - CSS wallpaper, paste in gradient from gradientmagic?
                 - auto remove text background-image or background if copypasted in
             - better matrix implementation
@@ -42,7 +42,9 @@
             - layout saving
             - rainbow borders? https://codepen.io/nocksock/pen/zYQVmwG
         - bugs:
+            - can't load same file twice - that's because files onchange calls the load function
             - dragging scaled elements is weird
+            - grid paper some small issues
             - canvas wallpapers don't switch nicely to each other
             - multiple fancy texts with rainbow don't work
             - gradient video doesn't loop!
@@ -177,7 +179,7 @@
         }
 
         //creates an html div containing all the contents of the file
-        function CreateNewHMTLObj(file,div) {
+        function CreateNewHMTLObj (file,div) {
             let container = document.createElement("div");
             div.appendChild(container);
             let reader = new FileReader();
@@ -190,13 +192,25 @@
 
         //loads a script image or video and sets it as the background
         //wallpaper scripts won't show up here unless they have mjs extension
-        function LoadBackground(file) {
+        function LoadBackground (file) {
             let filesrc = URL.createObjectURL(file);
             if ( file.type.includes("javascript") ) {
                 LoadNewScript(filesrc);
             } else {
                 SetBackground(filesrc,file.type.includes("video"));
             }
+        }
+
+        function MakeObjScale (obj) {
+            obj.addEventListener('wheel',function(event) {
+                event.preventDefault();
+                let dir = -1;
+                let scale = this.getBoundingClientRect().width / this.offsetWidth;
+                if ( event.deltaY < 0 ) { dir = 1; }
+                scale += dir * 0.1;
+                scale = Math.max(0.1, Math.min(5, scale));
+                $(this).css('transform', `scale(${scale})`);
+            });
         }
 
         //loads an array of files, and handles them according to type
@@ -242,15 +256,7 @@
             let div = document.createElement("div");
             div.classList.add("object-div");
             $(div).css('transform','scale(1)');
-            div.addEventListener('wheel',function(event) {
-                event.preventDefault();
-                let dir = -1;
-                let scale = this.getBoundingClientRect().width / this.offsetWidth;
-                if ( event.deltaY < 0 ) { dir = 1; }
-                scale += dir * 0.1;
-                scale = Math.max(0.1, Math.min(5, scale));
-                $(this).css('transform', `scale(${scale})`);
-            });
+            MakeObjScale(div);
             document.body.appendChild(div);
             //set location to where the mouse was last right clicked
             $(div).css({
@@ -308,6 +314,7 @@
                         });
                         $(newitem).draggable();
                         CreateDefaultContextMenu(newitem);
+                        MakeObjScale(newitem);
                         break;
                     case "hide":
                         $(elem).css('display','none');
