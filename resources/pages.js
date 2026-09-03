@@ -1,7 +1,9 @@
 //created by Mr L 2026
+//turns a single smart board display into a multi-page setup
+//moveable items will be placed in pages, background remains unchanged
 
 //default page button size
-let butSize = 0.6;
+let butSize = 0.7;
 let bgColor = "#ececec5b";
 
 //create the controls
