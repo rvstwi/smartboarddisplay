@@ -436,11 +436,25 @@
         obj.addEventListener('contextmenu',function(event) {
             event.preventDefault();
             // Show context menu
-            $(menu).finish().toggle(100).
+            $(menu).finish().toggle(100, function() {
+                //don't allow menu to go partially off screen
+                let Objs = $(".context");
+                let box;
+                let maxX, maxY;
+                for ( let i = 0; i < Objs.length; i++ ) {
+                    //check that the box isn't outside the view window
+                    box = Objs[i].getBoundingClientRect();
+                    maxX = Math.round(window.innerWidth - box.width);
+                    maxY = Math.round(window.innerHeight - box.height);
+                    //adjust if needed
+                    if ( box.left > maxX ) {Objs[i].style.left = `${maxX}px`;}
+                    if ( box.top > maxY ) {Objs[i].style.top = `${maxY}px`;}
+                }
+            }).
             //location
             css({
                 top: event.pageY + "px",
-                left: event.pageX + "px"
+                left: event.pageX + "px",
             });
             //save mouse click location for item creation
             rcloc.x = event.pageX + "px";
