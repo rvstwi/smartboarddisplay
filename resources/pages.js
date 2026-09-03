@@ -38,7 +38,8 @@ function watchButPrev () {
 }
 
 function MovePage (dir) {
-    let Objs = $(".object-div");
+    //grab all divs to move
+    let Objs = $(".object-div, .foreground-overlay");
     let w = window.innerWidth * dir;
     let x;
     let scale;

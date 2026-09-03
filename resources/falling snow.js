@@ -1,4 +1,5 @@
 //from https://rapidtoolset.com/en/tool/falling-snow-generator
+//adapted for Smart Board by Mr L
 
 (function() {
   // Falling Snow Script Configuration
@@ -19,7 +20,7 @@
   };
 
   // Create container for snowflakes
-  const snowContainer = document.createElement('div');
+  const snowContainer = CreateForegroundLayer();
   snowContainer.id = 'falling-snow-container';
   snowContainer.style.cssText = `
     position: fixed;
