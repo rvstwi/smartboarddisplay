@@ -205,9 +205,8 @@
         function MakeObjScale (obj) {
             obj.addEventListener('wheel',function(event) {
                 event.preventDefault();
-                let dir = -1;
+                let dir = event.deltaY < 0 ? 1 : -1;
                 let scale = this.getBoundingClientRect().width / this.offsetWidth;
-                if ( event.deltaY < 0 ) { dir = 1; }
                 scale += dir * 0.1;
                 scale = Math.max(0.1, Math.min(5, scale));
                 $(this).css('transform', `scale(${scale})`);
