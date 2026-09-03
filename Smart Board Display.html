@@ -26,7 +26,6 @@
 
         THE TODO LIST
 
-        - BUG when changing pages - hidden objects
         - FANCY WALLPAPERS:
             - ADD BLEND MODE/OPACITY to paste css, vanta
             - other ideas from https://htmlhub.org
@@ -314,7 +313,7 @@
                         MakeObjScale(newitem);
                         break;
                     case "hide":
-                        $(elem).css('display','none');
+                        $(elem).css('visibility','hidden');
                         break;
                     case "reset":
                         $(elem).css('transform','scale(1)');
@@ -475,9 +474,7 @@
             case "show":
                 let divs = document.getElementsByClassName("object-div");
                 for ( let i = 0; i < divs.length; i++ ) {
-                    if ( $(divs[i]).css("display") == "none" ) {
-                        $(divs[i]).toggle();
-                    }
+                    $(divs[i]).css('visibility', 'visible');
                 }
                 break;
             case "grid":
