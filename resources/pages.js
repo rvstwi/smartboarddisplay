@@ -2,7 +2,7 @@
 
 //default page button size
 let butSize = 0.6;
-let bgColor = "#ececec46";
+let bgColor = "#ececec5b";
 
 //create the controls
 let controls = CreateNewUI();
@@ -46,14 +46,22 @@ function MovePage (dir) {
             scale = Objs[i].getBoundingClientRect().width / Objs[i].offsetWidth;
             //reset scale so it doesn't mess up location math
             $(Objs[i]).css('transform', 'scale(1)');
-            //get the location after resetting scale
+            //get the location after resetting scale, then put scale back
             x = Objs[i].getBoundingClientRect().left;
-            x += w;
-            //set new location and set scale
+            $(Objs[i]).css('transform', `scale(${scale})`);
+            //set new location
+            x -= w;
+            //transition for smooth page move
             $(Objs[i]).css({
                 'left': x,
-                'transform': `scale(${scale})`,
+                'transition': "left 0.5s",
             });
         }
     }
+    setTimeout(resetTransition,500);
+}
+
+//reset the transition for setting left
+function resetTransition() {
+    $(".object-div").css('transition', ' left 0s');
 }
