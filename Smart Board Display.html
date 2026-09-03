@@ -473,8 +473,13 @@
                 break;
             case "show":
                 let divs = document.getElementsByClassName("object-div");
+                let l;
                 for ( let i = 0; i < divs.length; i++ ) {
-                    $(divs[i]).css('visibility', 'visible');
+                    //reveal hidden items only on current page
+                    l = divs[i].getBoundingClientRect().left;
+                    if ( ( l >= 0 ) && ( l < window.innerWidth )) {
+                        $(divs[i]).css('visibility', 'visible');
+                    }
                 }
                 break;
             case "grid":
