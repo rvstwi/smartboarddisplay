@@ -26,7 +26,6 @@
 
         THE TODO LIST
 
-        - PAGINATION
         - FANCY WALLPAPERS:
             - ADD BLEND MODE/OPACITY to paste css, vanta
             - other ideas from https://htmlhub.org
@@ -174,6 +173,7 @@
             let reader = new FileReader();
         	reader.onload = function () {
         		pre.textContent = reader.result;
+                $(div).css('min-width', div.offsetWidth);//force min width
         	}
     		reader.readAsText(file);
             return note;
@@ -195,14 +195,11 @@
         //wallpaper scripts won't show up here unless they have mjs extension
         function LoadBackground (file) {
             let filesrc = URL.createObjectURL(file);
-            if ( file.type.includes("javascript") ) {
-                LoadNewScript(filesrc);
-            } else {
-                SetBackground(filesrc,file.type.includes("video"));
-            }
+            file.type.includes("javascript") ? LoadNewScript(filesrc) : SetBackground(filesrc,file.type.includes("video"));
         }
 
         function MakeObjScale (obj) {
+            $(obj).css('transform','scale(1)');
             obj.addEventListener('wheel',function(event) {
                 event.preventDefault();
                 let dir = event.deltaY < 0 ? 1 : -1;
@@ -255,7 +252,6 @@
         function CreateNewObj() {
             let div = document.createElement("div");
             div.classList.add("object-div");
-            $(div).css('transform','scale(1)');
             MakeObjScale(div);
             document.body.appendChild(div);
             //set location to where the mouse was last right clicked
@@ -349,11 +345,7 @@
             let li = document.createElement("li");
             li.setAttribute('data-action', action+"");
             li.innerHTML = text;
-            if ( bBefore ) {
-                menu.insertBefore(li,menu.children[0]);
-            } else {
-                menu.appendChild(li);
-            }
+            bBefore ? menu.insertBefore(li,menu.children[0]) : menu.appendChild(li);
             return li;
         }
 
