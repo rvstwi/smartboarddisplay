@@ -38,16 +38,14 @@
             - stopwatch/timer - base the digits on the digital clock
         - WISHLIST:
             - force canvas size - xy in right click? - for building at different resolutions
-            - Camera input from document camera
             - layout saving
             - rainbow borders? https://codepen.io/nocksock/pen/zYQVmwG
         - bugs:
-            - can't load same file twice - that's because files onchange calls the load function
             - dragging scaled elements is weird
-            - grid paper some small issues
             - canvas wallpapers don't switch nicely to each other
             - multiple fancy texts with rainbow don't work
             - gradient video doesn't loop!
+            - changing resolutions after adding things can be buggy
 
         */
     
@@ -409,11 +407,10 @@
         <li data-action="add" name="add"><span class="material-symbols-outlined">desktop_landscape_add</span>Add object</li>
         <li data-action="back" name="back"><span class="material-symbols-outlined">wallpaper</span>Change background</li>
         <li data-action="show" name="show"><span class="material-symbols-outlined">visibility</span>Show hidden objects</li>
+        <li data-action="page" name="page"><span class="material-symbols-outlined">fit_page_width</span>Toggle page controls</li>
         <li data-action="grid" name="grid"><span class="material-symbols-outlined">border_inner</span>Toggle helper grid</li>
         <hr />
         <li data-action="reset" name="reset"><span class="material-symbols-outlined">restart_alt</span>Reset all</li>
-        <li data-action="new" name="new"><span class="material-symbols-outlined">new_window</span>New display</li>
-        <li data-action="close" name="close"><span class="material-symbols-outlined">tab_close</span>Close this display</li>
     </ul>
 
     <!-- context menu default object -->
@@ -427,8 +424,65 @@
         <li data-action="delete" name="delete"><span class="material-symbols-outlined">delete_forever</span>Delete</li>
     </ul>
 
+    <!-- context menu page controls -->
+     <ul class='context' id="page-context">
+        <li data-action="up" name="up"><span class="material-symbols-outlined">keyboard_double_arrow_up</span>Bring forward</li>
+        <li data-action="down" name="down"><span class="material-symbols-outlined">keyboard_double_arrow_down</span>Move backward</li>
+        <li data-action="lock" name="lock"><span class="material-symbols-outlined">lock</span>Lock position</li>
+        <li data-action="reset" name="reset"><span class="material-symbols-outlined">photo_size_select_small</span>Reset size</li>
+        <li data-action="toggle" name="toggle"><span class="material-symbols-outlined">fit_page_width</span>Toggle page controls</li>
+    </ul>
+
+    <!-- page controls - hidden by default -->
+    <div class="ui-div page-div" id="page-buttons">
+        <button type="button" id="pbPrev"><span class="material-symbols-outlined">chevron_backward</span></button>
+        <button type="button" id="pbNext"><span class="material-symbols-outlined">chevron_forward</span></button>
+    </div>
+
 </body>
 <script>
+
+    //handles moving elements according to pagination
+    function MovePage (dir) {
+        //grab all divs to move
+        let Objs = $(".object-div, .foreground-overlay");
+        let w = window.innerWidth * dir;
+        let x;
+        let oscale;
+        for ( let i = 0; i < Objs.length; i++ ) {
+            if ( Objs[i] != pager ) {
+                //get current scale
+                oscale = Objs[i].getBoundingClientRect().width / Objs[i].offsetWidth;
+                //reset scale so it doesn't mess up location math
+                $(Objs[i]).css('transform', 'scale(1)');
+                //get the location after resetting scale, then put scale back
+                x = Objs[i].getBoundingClientRect().left;
+                $(Objs[i]).css('transform', `scale(${oscale})`);
+                //set new location
+                x -= w;
+                //transition for smooth page move
+                $(Objs[i]).css({
+                    'left': x,
+                    'transition': "left 0.5s",
+                });
+            }
+        }
+        setTimeout(resetTransition,500);
+    }
+
+    //reset the transition for setting left
+    function resetTransition() {
+        $(".object-div").css('transition', ' left 0s');
+    }
+
+    //watches page button clicks
+    function watchButNext() {
+        MovePage(1);
+    }
+
+    function watchButPrev() {
+        MovePage(-1);
+    }
 
     //allows an object to open a specific context menu
     //adapted from https://stackoverflow.com/a/20471268 by Francisco Presencia
@@ -467,7 +521,7 @@
     AddContextMenu(canvas,$("#background-context"));
     
     //if the document is clicked somewhere, close all context menus
-    $(document).bind("mousedown", function (e) {
+    $(document).bind("mousedown", function(e) {
         //if the clicked element is not the menu
         if (!$(e.target).parents(".context").length > 0) {
             // Hide it
@@ -496,21 +550,59 @@
                     }
                 }
                 break;
+            case "page":
+                $('#page-buttons').toggle();
+                break;
             case "grid":
                 $(".grid-overlay").toggle();
                 break;
             case "reset":
                 location.reload();
                 break;
-            case "new":
-                window.open().document.location.href = "./Smart Board Display.html"; 
+        }
+        $(".context").hide(100);
+    });
+
+    //set up page controls
+    let pager = document.getElementById('page-buttons');
+    MakeObjScale(pager);
+    $(pager).draggable();
+    AddContextMenu(pager,$("#page-context"));
+    //actions for pager context menu
+    $("#page-context").on("click", "li", function() {
+        let p = $('#page-buttons');
+        let zi = p.css('z-index');
+        //this is the triggered action name
+        switch ( $(this).attr("data-action") ) {
+            case "up":
+                zi++;
+                p.css('z-index', zi);
                 break;
-            case "close":
-                window.close();
+            case "down":
+                zi--;
+                p.css('z-index', zi);
+                break;
+            case "lock":
+                if ( p.draggable("option", "disabled") ) {
+                    this.innerHTML = `<span class="material-symbols-outlined">lock</span>Lock position`;
+                    p.draggable("enable");
+                } else {
+                    this.innerHTML = `<span class="material-symbols-outlined">lock_open_right</span>Allow moving`;
+                    p.draggable("disable");
+                }
+                break;
+            case "reset":
+                p.css('transform', 'scale(1)');
+                break;
+            case "toggle":
+                p.toggle();
                 break;
         }
         $(".context").hide(100);
     });
+    //button actions
+    document.getElementById('pbPrev').addEventListener("click",watchButPrev);
+    document.getElementById('pbNext').addEventListener("click",watchButNext);
 
 </script>
 </html>
