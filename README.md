@@ -17,6 +17,8 @@ SBD is written in Javascript (jquery) and HTML.  It is secure, open-source, and 
 3. Press F11 on your keyboard to go into full screen mode.
 4. Right click anywhere on the smartboard to get going!
 
+![The right-click menu](readme_img/sbd_rclick.jpg)
+
 
 ## Adding objects
 In the right-click menu, choose "Add object" to open the file picker.  Here you can add several different types of files.  Multiple file picking (by holding the shift/ctrl keys) is supported.
@@ -41,6 +43,9 @@ In the right-click menu, choose "Change background" to open the file picker.  He
 
 
 ## Interacting with objects
+![Object menu](readme_img/sbd_obj.jpg)
+
+
 ### Layering
 Objects can stack in front of or behind each other.  Right-click on an object and use the "Bring forward" and "Move backward" buttons to adjust the order of objects in the stack.
 
@@ -61,6 +66,11 @@ Hover your mouse over an item and scroll the wheel to change its size.  You can 
 
 ### Deleting
 Surprisingly, the "Delete" option in the right-click menu lets you delete an object.
+
+### More actions
+Many objects will have additional features and right-click options.
+- images and videos allow you to add a hyperlink in their right-click menu.  Use this to set a link that can be opened by double-clicking on the item.
+- scripts such as "fancy text.js" will let you edit the text content through the right-click menu.
 
 
 ## Page controls
