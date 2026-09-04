@@ -107,9 +107,6 @@
             div.appendChild(img);
             //add edit entry to top of menu
             let limg = AddContextItem(menu,"link",`<span class="material-symbols-outlined">open_in_new</span>Edit link`,true);
-            //let limg = document.createElement("li");
-            //limg.innerHTML = `<span class="material-symbols-outlined">open_in_new</span>Edit link`;
-            //menu.insertBefore(limg,menu.children[0]);
             limg.addEventListener('click', function() {
                 let pres = "www.example.ca";
                 $(".context").hide(100);
@@ -137,10 +134,7 @@
             video.muted = true;
             div.appendChild(video);
             //add edit entry to top of menu
-            let limg = AddContextItem(menu,"link",`<span class="material-symbols-outlined">open_in_new</span>Edit link`,true);
-            //let liv = document.createElement("li");
-            //liv.innerHTML = `<span class="material-symbols-outlined">open_in_new</span>Edit link`;
-            //menu.insertBefore(liv,menu.children[0]);
+            let liv = AddContextItem(menu,"link",`<span class="material-symbols-outlined">open_in_new</span>Edit link`,true);
             liv.addEventListener('click', function() {
                 let upres = "www.example.ca";
                 $(".context").hide(100);
