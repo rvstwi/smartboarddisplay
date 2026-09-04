@@ -89,8 +89,8 @@ SBD has a simple grid to divide the screen into thirds and sixths, for easier pl
 
 Some helpful tools in the `resources` folder include:
 
-- `add search options` - adds four easy search tools to your right click menu, including Youtube and Maps.
-- `button` - two sample buttons.  Open in any text editor to change them to go directly to your Classroom, slideshow, etc.
+- `add search options.js` - adds four easy search tools to your right click menu, including Youtube and Maps.
+- `button - [..].html` - two sample buttons.  Open in any text editor to change them to go directly to your Classroom, slideshow, etc.
 - `clock - digital.js` - a digital clock with some color/font formatting options.
 - `fancy text.js` - formattable large text.  Has an animated rainbow option.
 - `graph paper.js` - adjustable grid lines for your smartboard.
