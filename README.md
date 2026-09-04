@@ -1,5 +1,5 @@
 # Smart Board Display
-![Title image for Smart Board Display, showing several different possible configurations](readme_img/smb_cover.jpg)
+![Title image for Smart Board Display, showing several different possible configurations](readme_img/sbd_cover.jpg)
 A simple digital signage webapp intended for educational displays
 
 ## About
