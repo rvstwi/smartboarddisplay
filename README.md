@@ -83,3 +83,19 @@ SBD supports arranging objects into basic pages.  Right-click anywhere on the ba
 ## Helper grid
 
 SBD has a simple grid to divide the screen into thirds and sixths, for easier placement.  Right-click anywhere on the background and choose `Toggle helper grid` to reveal.
+
+
+## Included resources
+
+Some helpful tools in the `resources` folder include:
+
+- `add search options` - adds four easy search tools to your right click menu, including Youtube and Maps.
+- `button` - two sample buttons.  Open in any text editor to change them to go directly to your Classroom, slideshow, etc.
+- `clock - digital.js` - a digital clock with some color/font formatting options.
+- `fancy text.js` - formattable large text.  Has an animated rainbow option.
+- `graph paper.js` - adjustable grid lines for your smartboard.
+- `todo list.js` - a customizable to-do list.  Right-click or click underneath to add a new item.  Click on any time to check it off.  Drag items by the handles to reorder.
+- `wallpaper - colors.mjs` - build your own color gradients for your background.  Allows blending with images/videos underneath.
+- `web cam.js` - display the video from an attached camera.
+
+Check the "goodies" release zip for even more things to add to your resources.
