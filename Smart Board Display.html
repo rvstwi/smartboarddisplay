@@ -21,7 +21,6 @@
         - jquery
         - google fonts
         - anime.js
-        - three.js
 
 
         THE TODO LIST
@@ -61,7 +60,6 @@
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
     <script src="https://code.jquery.com/ui/1.14.2/jquery-ui.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
     <script>
 
         //mouse right click saved location
@@ -428,7 +426,7 @@
     </ul>
 
     <!-- page controls - hidden by default -->
-    <div class="ui-div page-div" id="page-buttons">
+    <div class="object-div page-div" id="page-buttons">
         <button type="button" id="pbPrev"><span class="material-symbols-outlined">chevron_backward</span></button>
         <button type="button" id="pbNext"><span class="material-symbols-outlined">chevron_forward</span></button>
     </div>
@@ -511,7 +509,7 @@
     }
 
     //attach the background context menu to canvas
-    let canvas = document.querySelector("canvas");
+    let canvas = document.getElementById("back-canvas");
     AddContextMenu(canvas,$("#background-context"));
     
     //if the document is clicked somewhere, close all context menus
