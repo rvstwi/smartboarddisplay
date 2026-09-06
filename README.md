@@ -3,7 +3,7 @@
 A simple digital signage webapp intended for educational displays
 
 ## About
-Smart Board Display ("SBD") is a simple solution for a teacher wanting to display gifs, to-do lists, and videos on a smartboard, without the ugly user interface of Smart Notebook getting in the way.  SBD runs in your favorite browser and is designed to load outside resources as movable "objects" that can be interacted with, on top of a video or image canvas.  SBD is infinitely expandable -- with just a little coding knowledge you can create any manner of resources, effects, interactives, etc.
+Smart Board Display ("SBD") is a simple solution for teachers wanting to display notes, gifs, to-do lists, and more on a smartboard, without ugly user interfaces (Windows, SMART Notebook, etc) getting in the way.  SBD runs in your favorite browser and is designed to load outside resources as movable "objects" that can be interacted with, on top of a video or image canvas.  SBD is infinitely expandable -- with just a little coding knowledge you can create any manner of resources, effects, interactives, etc.
 
 SBD is written in Javascript (jquery) and HTML.  It is simple, open-source, and designed to not make your school's IT department mad.
 
@@ -91,6 +91,7 @@ Some helpful tools in the `resources` folder include:
 
 - `add search options.js` - adds four easy search tools to your right click menu, including Youtube and Maps.
 - `button - [..].html` - two sample buttons.  Open in any text editor to change them to go directly to your Classroom, slideshow, etc.
+- `clock - analog.js` - an elegant clock face with adjustable transparency.
 - `clock - digital.js` - a digital clock with some color/font formatting options.
 - `fancy text.js` - formattable large text.  Has an animated rainbow option.
 - `graph paper.js` - adjustable grid lines for your smartboard.
