@@ -14,6 +14,7 @@
   --ui-border: 1px solid #bec4ced2;
   --ui-radius: 5px;
   --ui-font: Verdana, Geneva, Tahoma, sans-serif;
+  --sb-blur: blur(12px);
 }
 
 /* BEGIN NOTES */
@@ -26,6 +27,8 @@
   max-width: 34vw;
   padding: 0.4vw;
   position: relative;
+  backdrop-filter: var(--sb-blur);
+  -webkit-backdrop-filter: var(--sb-blur);
 }
 
 .notes pre {
@@ -98,6 +101,8 @@
   border: var(--ui-border);
   padding: 0.9vh;
   border-radius: var(--ui-radius);
+  backdrop-filter: var(--sb-blur);
+  -webkit-backdrop-filter: var(--sb-blur);
 }
 
 .ui-div input, button, label, p, select, br {
@@ -116,6 +121,8 @@
   padding: 0.9vh;
   z-index: 21;
   border-radius: var(--ui-radius);
+  backdrop-filter: var(--sb-blur);
+  -webkit-backdrop-filter: var(--sb-blur);
 }
 
 .page-div button {
@@ -139,6 +146,8 @@
   text-shadow: 0.3vh 0.3vh 0.5vh #00000030;
   padding: 0;
   font-size: 1.5vh;
+  backdrop-filter: var(--sb-blur);
+  -webkit-backdrop-filter: var(--sb-blur);
 }
 
 /* Each of the items in the list */
