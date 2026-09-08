@@ -1,6 +1,6 @@
 # Smart Board Display
 ![Title image for Smart Board Display, showing several different possible configurations](readme_img/sbd_cover.jpg)
-A simple digital signage webapp intended for educational displays
+A simple digital signage webapp intended for educational displays - created by Mr L
 
 ## About
 Smart Board Display ("SBD") is a simple solution for teachers wanting to display notes, gifs, to-do lists, and more on a smartboard, without ugly user interfaces (Windows, SMART Notebook, etc) getting in the way.  SBD runs in your favorite browser and is designed to load outside resources as movable "objects" that can be interacted with, on top of a video or image canvas.  SBD is infinitely expandable -- with just a little coding knowledge you can create any manner of resources, effects, interactives, etc.
