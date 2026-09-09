@@ -558,6 +558,7 @@
                 r = $(":root").css("--sb-blur");
                 s = r ==  "blur(12px)" ? "blur(0)" : "blur(12px)";
                 $(":root").css("--sb-blur", s);
+                document.documentElement.setAttribute("style", "--sb-blur: blur(12px)");
                 break;
             case "reset":
                 location.reload();
