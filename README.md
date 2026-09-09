@@ -85,6 +85,11 @@ SBD supports arranging objects into basic pages.  Right-click anywhere on the ba
 SBD has a simple grid to divide the screen into thirds and sixths, for easier placement.  Right-click anywhere on the background and choose `Toggle helper grid` to reveal.
 
 
+## Blur effects
+
+Many translucent objects in SBD will have a visual blur applied behind them.  For slower computers, this effect can be disabled with the `Toggle blur effects` option.
+
+
 ## Included resources
 
 Some helpful tools in the `resources` folder include:

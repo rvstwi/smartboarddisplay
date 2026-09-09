@@ -403,6 +403,7 @@
         <li data-action="show" name="show"><span class="material-symbols-outlined">visibility</span>Show hidden objects</li>
         <li data-action="page" name="page"><span class="material-symbols-outlined">fit_page_width</span>Toggle page controls</li>
         <li data-action="grid" name="grid"><span class="material-symbols-outlined">border_inner</span>Toggle helper grid</li>
+        <li data-action="blur" name="blur"><span class="material-symbols-outlined">lens_blur</span>Toggle blur effects</li>
         <hr />
         <li data-action="reset" name="reset"><span class="material-symbols-outlined">restart_alt</span>Reset all</li>
     </ul>
@@ -525,6 +526,10 @@
 
     //actions for background context menu
     $("#background-context").on("click", "li", function() {
+        let divs;
+        let l;
+        let r;
+        let s;
         //this is the triggered action name
         switch($(this).attr("data-action")) {
             case "add":
@@ -534,8 +539,7 @@
                 document.getElementById('background-input').click();
                 break;
             case "show":
-                let divs = document.getElementsByClassName("object-div");
-                let l;
+                divs = document.getElementsByClassName("object-div");
                 for ( let i = 0; i < divs.length; i++ ) {
                     //reveal hidden items only on current page
                     l = divs[i].getBoundingClientRect().left;
@@ -549,6 +553,11 @@
                 break;
             case "grid":
                 $(".grid-overlay").toggle();
+                break;
+            case "blur":
+                r = $(":root").css("--sb-blur");
+                s = r ==  "blur(12px)" ? "blur(0)" : "blur(12px)";
+                $(":root").css("--sb-blur", s);
                 break;
             case "reset":
                 location.reload();
