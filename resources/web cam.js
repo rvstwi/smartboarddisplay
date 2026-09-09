@@ -20,7 +20,8 @@ function handleSuccess(stream) {
 }
 
 function handleError(error) {
-  console.log('getUserMedia error: ', error);
+  alert('Webcam error: \n'+ error);
+  //console.log('getUserMedia error: ', error);
 }
 
 navigator.mediaDevices.getUserMedia(constraints).then(handleSuccess).catch(handleError);
