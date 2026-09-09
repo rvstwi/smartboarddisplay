@@ -9,14 +9,14 @@ let csscontent = `
     width: 320px;
     height: 320px;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
+    background: rgba(255, 255, 255, 0.5);
+    backdrop-filter: var(--sb-blur);
+    -webkit-backdrop-filter: var(--sb-blur);
     box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
     border: 2px solid rgba(255, 255, 255, 0.2);
 }
 
-.hand {
+.ahand {
     position: absolute;
     bottom: 50%;
     left: 50%;
@@ -25,21 +25,21 @@ let csscontent = `
     border-radius: 6px;
 }
 
-.hour {
+.ahour {
     width: 6px;
     height: 70px;
     background: #333;
     z-index: 3;
 }
 
-.minute {
+.aminute {
     width: 4px;
     height: 100px;
     background: #444;
     z-index: 2;
 }
 
-.second {
+.asecond {
     width: 2px;
     height: 120px;
     background: crimson;
@@ -97,9 +97,9 @@ $('head').append(style);
 let outer = CreateNewObj();
 outer.innerHTML = `
 <div class="clock" id="analogclock">
-<div class="hand hour" id="hour"></div>
-<div class="hand minute" id="minute"></div>
-<div class="hand second" id="second"></div>
+<div class="ahand ahour" id="hour"></div>
+<div class="ahand aminute" id="minute"></div>
+<div class="ahand asecond" id="second"></div>
 <div class="center-dot"></div>
 <div class="mark mark12"></div>
 <div class="mark mark3"></div>
@@ -111,7 +111,7 @@ let menu = CreateDefaultContextMenu(outer);
 let transinput = document.createElement("input");
 transinput.type = "range";
 transinput.id = "clocktrans";
-transinput.value = "10";
+transinput.value = "50";
 transinput.min = "0";
 transinput.max = "100";
 let li = AddContextItem(menu,"transparent", "", true);
