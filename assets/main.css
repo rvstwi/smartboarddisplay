@@ -225,6 +225,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  pointer-events: none;
+  background-image: none;
 }
 
 .video-container {
