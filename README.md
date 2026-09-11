@@ -104,5 +104,6 @@ Some helpful tools in the `resources` folder include:
 - `todo list.js` - a customizable to-do list.  Right-click or click underneath to add a new item.  Click on any time to check it off.  Drag items by the handles to reorder.
 - `wallpaper - colors.mjs` - build your own color gradients for your background.  Allows blending with images/videos underneath.
 - `web cam.js` - display the video from an attached camera.
+- `window share.js` - display another window, tab, or app on your computer.
 
 Check the "goodies" release zip for even more things to add to your resources.
