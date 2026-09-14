@@ -4,7 +4,7 @@
 /* DEFAULT VARIABLES */
 :root {
   --note-bg: #d1d10ea7;
-  --note-text: #232323;
+  --note-text: #1d1d1d;
   --note-font: "Indie Flower", cursive;
   --ui-bg: #ececece0;
   --ui-bg-trans: #ecececa0;
@@ -15,6 +15,10 @@
   --ui-radius: 5px;
   --ui-font: Verdana, Geneva, Tahoma, sans-serif;
   --sb-blur: blur(12px);
+  --sticky-c1: #d9ff31c7;
+  --sticky-c2: #31ffddc7;
+  --sticky-c3: #ffbe31c7;
+  --sticky-c4: #ff95b5c7;
 }
 
 /* BEGIN NOTES */
@@ -127,6 +131,43 @@
 
 .page-div button {
   scale: 0.8;
+}
+
+/* sticky notes */
+.sticky-note {
+  width: 15vw;
+}
+
+.sticky-note p {
+  font-size: 1.6vw;
+  font-style: italic;
+  font-family: var(--note-font);
+  font-weight: 700;
+  text-align: center;
+  text-shadow: 0.3vh 0.3vh 0.5vh #00000030;
+  padding: 0.1vw;
+}
+
+.sticky-interior {
+  top: 4.5vw;
+  background-color: var(--sticky-c1);
+  border: var(--ui-border);
+  color: var(--note-text);
+  backdrop-filter: var(--sb-blur);
+  -webkit-backdrop-filter: var(--sb-blur);
+  position: relative;
+  min-height: 10vw;
+}
+
+.sticky-top {
+  position: fixed;
+  top: 0;
+  height: 7vw;
+  width: 100%;
+  background-image: url("note_pin.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 /* END DRAGGABLE */
 
