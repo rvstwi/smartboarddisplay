@@ -178,7 +178,8 @@
             let outer = CreateNewObj();
             //interior div holding everything and rotating
             let stdiv = document.createElement("div");
-            let randnum = Math.floor(Math.random() * 17) - 8;
+            let randnum = Math.floor(Math.random() * 10) + 2;
+            randnum *= Math.random() < 0.5? -1 : 1;
             $(stdiv).css('transform', `rotate(${randnum}deg)`);
             outer.appendChild(stdiv);
             //context menu
