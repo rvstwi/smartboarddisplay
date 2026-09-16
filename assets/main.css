@@ -96,6 +96,9 @@
   position: absolute;
   z-index: 20;
   padding: 0px;
+  overflow: hidden;
+  word-break: keep-all;
+  white-space: nowrap;
 }
 
 /* draggable UI subclass */
