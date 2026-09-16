@@ -138,12 +138,8 @@ function AnimateColor() {
 //breaks into an array of characters
 //and sets as the content of the text item
 function SetUpText(textitem) {
-    let w = "Welcome";
-    if ( textitem.textContent != "" ) {
-        w = textitem.textContent;
-    }
-    let s = prompt("Enter your text",w);
-    return s;
+    let w = textitem.textContent != "" ? textitem.textContent : "Welcome";
+    return prompt("Enter your text", w);
 }
 
 function watchColorPicker (event) {
