@@ -276,6 +276,8 @@ let csscontent = `
 
 .list__item {
   width: 100%;
+  backdrop-filter: var(--sb-blur);
+  -webkit-backdrop-filter: var(--sb-blur);
   background: var(--ui-bg);
   padding: 10px;
   border-radius: 5px;
