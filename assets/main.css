@@ -141,6 +141,12 @@
   width: 16vw;
 }
 
+.sticky-div {
+  overflow: visible;
+  word-break: break-word;
+  white-space: normal;
+}
+
 .sticky-note p {
   font-size: 1.6vw;
   font-style: italic;
