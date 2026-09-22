@@ -1,5 +1,5 @@
 //adapted from Trivia Hide/Reveal CSS
-// by JT
+//by JT
 //https://codepen.io/jtcattelan/pen/RwKdjdm
 
 let style = document.createElement('style');
@@ -15,7 +15,7 @@ let csscontent = `
   height: 450px;
   width: 650px;
   border: 4px solid #1e1e1e;
-  border-radius: 40px;
+  border-radius: var(--ui-radius);
   box-shadow: 1px 1px 20px #222;
   cursor: pointer;
   transition: all 0.6s cubic-bezier(0.745, 0.11, 0.35, 0.845); /* custom */
@@ -25,6 +25,8 @@ let csscontent = `
     0.35,
     0.845
   ); /* custom */
+  white-space: pre-wrap;
+  word-wrap: break-word;
 }
 
 .reveal-q:hover {
@@ -38,34 +40,36 @@ let csscontent = `
   width: 650px;
   object-fit: cover;
   z-index: 10;
-  border-radius: 40px;
-}
-
-.reveal-q h1 {
-  color: #000;
-  font-size: 55px;
-  font-weight: 600;
-  line-height: 55px;
+  border-radius: var(--ui-radius);
 }
 
 .reveal-q h2 {
   margin-top: auto;
+  padding-top: 55px;
   color: #000;
   z-index: 5;
-  font-size: 25px;
+  font-size: 35px;
   font-weight: 500;
+}
+
+.reveal-q h1 {
+  color: #000;
+  font-size: 60px;
+  font-weight: 600;
+  line-height: 55px;
 }
 
 .reveal-q h3 {
   color: #fff;
   z-index: 5;
-  font-size: 30px;
+  font-size: 50px;
 }
 
 .footer-q {
   font-size: 20px;
   margin-top: auto;
   padding-bottom: 15px;
+  color: #000;
 }
 `;
 style.textContent = csscontent;
@@ -80,7 +84,7 @@ outer.innerHTML = `
     <h2>What was the first</h2>
     <h1>National Park?</h1>
     <h3>Yellowstone</h3>
-    <p class="footer-q">(hover to reveal)</p>
+    <p class="footer-q">(Hover to reveal)</p>
 </div>
 `;
 let menu = CreateDefaultContextMenu(outer);
