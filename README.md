@@ -1,21 +1,21 @@
-# Smart Board Display - simple digital signage for the classroom
+# Quick Display - simple classroom digital signage
 ![Animated gif demonstrating potential layouts](readme_img/sbd_ani.gif)
 
 
-A simple digital signage webapp intended for SMART boards and educational displays - created by Mr L
+A FAST digital signage webapp intended for SMART boards and educational displays - created by Mr L
 
 ## About
-Smart Board Display ("SBD") is a simple solution for teachers wanting to display notes, gifs, to-do lists, and more on a smartboard, without ugly user interfaces (Windows, SMART Notebook, etc) getting in the way.  SBD runs in your favorite browser and is designed to load outside resources as movable "objects" that can be interacted with, on top of a video or image canvas.  SBD is infinitely expandable -- with just a little coding knowledge you can create any manner of resources, effects, interactives, etc.
+Quick Display ("QD") is a simple solution for teachers wanting to display notes, gifs, to-do lists, and more on a smartboard, without ugly user interfaces (Windows, SMART Notebook, etc) getting in the way.  QD runs in your favorite browser and is designed to load outside resources as movable "objects" that can be interacted with, on top of a video or image canvas.  QD is infinitely expandable -- with just a little coding knowledge you can create any manner of resources, effects, interactives, etc.
 
-SBD is written in Javascript (jquery) and HTML.  It is simple, open-source, and designed to not make your school's IT department mad.
+QD is written in Javascript (jquery) and HTML.  It is simple, open-source, and designed to not make your school's IT department mad.
 
 > [!IMPORTANT]
 > This software is AI-free. Generative "artificial intelligence"/large-language models were not used in any way.
 
 
 ## Quick-start guide
-1. Double click on the file `Smart Board Display.html`.  It will open in your default web browser.
-2. Drag the tab containing SBD over to your smartboard so the window is visible.
+1. Double click on the file `Quick Display.html`.  It will open in your default web browser.
+2. Drag the tab containing QD over to your smartboard so the window is visible.
 3. Press F11 on your keyboard to go into full screen mode.
 4. Right click anywhere on the smartboard to get going!
 
@@ -41,7 +41,7 @@ In the right-click menu, choose `Change background` to open the file picker.  He
 > Script backgrounds may not play nicely with each other and can cause glitches if not used carefully.
 
 > [!NOTE]
-> There is no functional difference between the JS files loaded with the `Add object` option and the MJS files loaded with the `Change background` option - both are simple Javascript.  The file extension tells SBD whether the script is to be an object or a background.
+> There is no functional difference between the JS files loaded with the `Add object` option and the MJS files loaded with the `Change background` option - both are simple Javascript.  The file extension tells QD whether the script is to be an object or a background.
 
 
 ## Interacting with objects
@@ -76,7 +76,7 @@ Many objects will have additional features and right-click options.
 
 ## Page controls
 
-SBD supports arranging objects into basic pages.  Right-click anywhere on the background and choose `Toggle page controls` to show the page control buttons.  Switching pages will slide all objects according to their placement in the page order.  The background of SBD will remain unchanged.
+QD supports arranging objects into basic pages.  Right-click anywhere on the background and choose `Toggle page controls` to show the page control buttons.  Switching pages will slide all objects according to their placement in the page order.  The background of QD will remain unchanged.
 
 > [!NOTE]
 > Revealing hidden objects will only apply to objects on the current page.  Hidden objects on pages that are not visible will be unaffected.
@@ -84,12 +84,12 @@ SBD supports arranging objects into basic pages.  Right-click anywhere on the ba
 
 ## Helper grid
 
-SBD has a simple grid to divide the screen into thirds and sixths, for easier placement.  Right-click anywhere on the background and choose `Toggle helper grid` to reveal.
+QD has a simple grid to divide the screen into thirds and sixths, for easier placement.  Right-click anywhere on the background and choose `Toggle helper grid` to reveal.
 
 
 ## Blur effects
 
-Many translucent objects in SBD will have a visual blur applied behind them.  For slower computers, this effect can be disabled with the `Toggle blur effects` option.
+Many translucent objects in QD will have a visual blur applied behind them.  For slower computers, this effect can be disabled with the `Toggle blur effects` option.
 
 
 ## Included resources
