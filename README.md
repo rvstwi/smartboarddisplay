@@ -1,8 +1,8 @@
-# Quick Display - simple classroom digital signage
+# Quick Display - for interactive whiteboards
 ![Animated gif demonstrating potential layouts](readme_img/sbd_ani.gif)
 
 
-A FAST digital signage webapp intended for SMART boards and educational displays - created by Mr L
+A simple display webapp intended for SMART boards and educational interactive whiteboards - created by Mr L
 
 ## About
 Quick Display ("QD") is a simple solution for teachers wanting to display notes, gifs, to-do lists, and more on a smartboard, without ugly user interfaces (Windows, SMART Notebook, etc) getting in the way.  QD runs in your favorite browser and is designed to load outside resources as movable "objects" that can be interacted with, on top of a video or image canvas.  QD is infinitely expandable -- with just a little coding knowledge you can create any manner of resources, effects, interactives, etc.

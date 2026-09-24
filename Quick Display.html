@@ -22,6 +22,7 @@
         - google fonts
         - anime.js
         - three.js
+        - EmojiPicker.js
 
 
         THE TODO LIST
@@ -71,6 +72,7 @@
     <script src="https://code.jquery.com/ui/1.14.2/jquery-ui.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@schwitzerskills/emojipicker/emoji-picker.js"></script>
     <script>
 
         //mouse right click saved location
@@ -446,8 +448,9 @@
 
     <!-- context menu background -->
     <ul class='context' id="background-context">
-        <li data-action="add" name="add"><span class="material-symbols-outlined">desktop_landscape_add</span>Add object</li>
-        <li data-action="sticky" name="sticky"><span class="material-symbols-outlined">sticky_note_2</span>Add sticky note</li>
+        <li data-action="add" name="add"><span class="material-symbols-outlined">desktop_landscape_add</span>Load object</li>
+        <li data-action="sticky" name="sticky"><span class="material-symbols-outlined">sticker_add</span>Sticky note</li>
+        <li data-action="emoji" name="emoji" id="emoj-menu"><span class="material-symbols-outlined">add_reaction</span>Emoji</li>
         <li data-action="back" name="back"><span class="material-symbols-outlined">wallpaper</span>Change background</li>
         <hr />
         <li data-action="show" name="show"><span class="material-symbols-outlined">visibility</span>Show hidden objects</li>
@@ -486,6 +489,17 @@
 
 </body>
 <script>
+
+    //handles emoji selector clicks
+    let myPicker = new EmojiPicker({ container: '#emoj-menu' })
+    myPicker.on('emojiClick', (emoji) => {
+        let newEm = CreateNewObj();
+        newEm.classList.add('emoji-div');
+        let newEmMen = CreateDefaultContextMenu(newEm);
+        let newEmH = document.createElement("h");
+        newEmH.textContent = emoji.char;
+        newEm.appendChild(newEmH);
+    })
 
     //handles moving elements according to pagination
     function MovePage (dir) {
@@ -587,6 +601,9 @@
                 break;
             case "sticky":
                 CreateSticky(prompt("Enter your text", "Sticky note contents"));
+                break;
+            case "emoji":
+                
                 break;
             case "back":
                 document.getElementById('background-input').click();
