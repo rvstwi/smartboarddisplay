@@ -6,6 +6,7 @@
   --note-bg: #d1d10ea7;
   --note-text: #1d1d1d;
   --note-font: "Indie Flower", cursive;
+  --text-shadow: 0.3vh 0.3vh 0.5vh #0000003e;
   --ui-bg: #ececece0;
   --ui-bg-trans: #ecececa0;
   --ui-text: #3e3e3e;
@@ -117,6 +118,14 @@
   color: var(--ui-text);
   text-shadow: 0.3vh 0.3vh 0.5vh #00000030;
   font-size: 1.5vh;
+}
+
+/* EMOJI */
+.emoji-div h {
+  font-size: 12vh;
+  text-shadow: var(--text-shadow);
+  user-select: none;
+  cursor: default;
 }
 
 .page-div {
