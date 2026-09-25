@@ -1,17 +1,5 @@
 //Author: Mr L (2026)
 
-//Uses google fonts
-
-//google fonts
-let link = document.createElement('link');
-link.href = "https://fonts.googleapis.com/css2?family=Bitcount+Grid+Single:wght@100..900&display=swap";
-link.rel = "stylesheet";
-$('head').append(link);
-let link2 = document.createElement('link');
-link2.href = "https://fonts.googleapis.com/css2?family=Bungee+Hairline&display=swap";
-link2.rel = "stylesheet";
-$('head').append(link2);
-
 let clockcolor = "#b9d0e8";
 let clockfont = "Verdana, Geneva, Tahoma, sans-serif";
 

@@ -1,42 +1,7 @@
 //Author: Mr L (2026)
 
-//Uses google fonts
-
 //contains code adapted from Rainbow Text by Riley Shaw
 //https://codepen.io/rileyjshaw/pen/vExWpe
-
-//LOAD FONTS FIRST
-
-//google font archivo black
-let link = document.createElement('link');
-link.href = "https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap";
-link.rel = "stylesheet";
-$('head').append(link);
-//google font permanent marker
-let link1 = document.createElement('link');
-link1.href = "https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap";
-link1.rel = "stylesheet";
-$('head').append(link1);
-//google font google sans
-let link2 = document.createElement('link');
-link2.href = "https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&display=swap";
-link2.rel = "stylesheet";
-$('head').append(link2);
-//google font dancing script
-let link3 = document.createElement('link');
-link3.href = "https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap";
-link3.rel = "stylesheet";
-$('head').append(link3);
-//google font noto serif
-let link4 = document.createElement('link');
-link4.href = "https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,100..900;1,100..900&display=swap";
-link4.rel = "stylesheet";
-$('head').append(link4);
-//google font pacifico
-let link5 = document.createElement('link');
-link5.href = "https://fonts.googleapis.com/css2?family=Pacifico&display=swap";
-link5.rel = "stylesheet";
-$('head').append(link5);
 
 //variable set up
 let color1 = "#64ade5";
